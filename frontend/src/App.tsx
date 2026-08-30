@@ -69,7 +69,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [simulating, setSimulating] = useState<string | null>(null);
 
-  const API_BASE = 'http://localhost:8080';
+  const API_BASE = 'http://localhost:8000';
 
   const fetchRecords = async () => {
     try {

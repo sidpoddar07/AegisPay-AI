@@ -69,5 +69,9 @@ class AegisPayFirewall:
         )
 
 
+# Backward compatible alias for legacy test references
+RazorGuardFirewall = AegisPayFirewall
+
+
 # Backward compatibility alias
 RazorGuardFirewall = AegisPayFirewall
