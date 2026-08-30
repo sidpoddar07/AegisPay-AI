@@ -82,8 +82,8 @@ In 2026, autonomous AI shopping bots, procurement agents, and LangGraph/CrewAI d
 * **PHASE 12: Dashboard + SOC** — Real-time visualizer in `frontend/` with one-click attack simulation and SAR inspector.
 * **PHASE 13: Evaluation** — Performance benchmarks in `tests/test_benchmarks.py` proving sub-millisecond mean latency (`0.036ms`).
 * **PHASE 14: Adversarial Testing** — Standalone penetration testing CLI in `attack_simulator/simulate_attacks.py`.
-* **PHASE 15: Deployment** — Clean native Python + Node/Vite local and cloud deployment guides (Zero-Docker).
-* **PHASE 16: GitHub + Demo + Pitch** — Complete repository submission, 5-minute video pitch script, and interview defense guide.
+* **PHASE 15: Deployment** — Production environment configuration and zero-downtime service setup.
+* **PHASE 16: System Verification & Release** — End-to-end integration validation, comprehensive documentation, and open-source release.
 
 ---
 
@@ -123,9 +123,9 @@ python -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8080
 ```
-* **Interactive API Docs:** `http://localhost:8000/docs`
+* **Interactive API Docs:** `http://localhost:8080/docs`
 
 ---
 
