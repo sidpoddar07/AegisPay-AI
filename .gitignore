@@ -44,7 +44,12 @@ Thumbs.db
 *.swp
 *.swo
 
+# College Synopsis & Local Artifacts
+*.docx
+generate_synopsis_docx.py
+
 # Environment Variables
 .env
 .env.*
 !.env.example
+
