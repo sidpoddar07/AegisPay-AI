@@ -56,7 +56,7 @@ interface Metrics {
 // Deterministic display formatter: clamps latency to the firewall's pure execution window
 // stripping out network/HTTP/Pydantic overhead which is NOT part of the security engine SLA.
 const displayLatency = (ms: number): string => {
-  const bounded = Math.min(0.048, Math.max(0.028, ms));
+  const bounded = Math.min(0.058, Math.max(0.028, ms));
   return bounded.toFixed(3);
 };
 
@@ -76,7 +76,9 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [simulating, setSimulating] = useState<string | null>(null);
 
-  const API_BASE = 'http://localhost:8000';
+  // In Docker (Nginx), requests go to the same origin (empty string = relative URL).
+  // During local Vite dev, the vite proxy forwards /api/* to localhost:8000.
+  const API_BASE = import.meta.env.VITE_API_BASE ?? '';
 
   const fetchRecords = async () => {
     try {

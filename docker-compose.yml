@@ -1,0 +1,53 @@
+# =============================================================================
+# AegisPay-AI — Docker Compose Orchestration
+# Usage: docker compose up --build
+# =============================================================================
+
+services:
+
+  # ── FastAPI / Uvicorn Backend ───────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aegispay-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"        # Exposed for the attack_simulator CLI on the host
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - aegispay-net
+
+  # ── React / Vite → Nginx Frontend ──────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aegispay-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"          # Dashboard accessible at http://localhost:3000
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - aegispay-net
+
+networks:
+  aegispay-net:
+    driver: bridge
+    name: aegispay-network

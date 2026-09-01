@@ -12,4 +12,12 @@ export default defineConfig({
       },
     },
   },
+  // In dev mode, expose the backend URL so API_BASE resolves correctly.
+  // In Docker production, this is intentionally NOT set so relative URLs
+  // (/api/*) flow through Nginx to the backend container.
+  define: {
+    'import.meta.env.VITE_API_BASE': JSON.stringify(
+      process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000'
+    ),
+  },
 });
